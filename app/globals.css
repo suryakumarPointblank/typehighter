@@ -145,7 +145,7 @@ body {
   align-items: center;
   justify-content: center;
   font-family: 'Poppins', sans-serif;
-  font-weight: 700;
+  font-weight: 800;
   font-size: clamp(7px, 1.6vw, 14px);
   color: #c8006a;
   letter-spacing: 0.03em;
@@ -204,9 +204,9 @@ body {
 }
 
 .campaign-title {
-  font-family: 'Dreamwalker', 'Poppins', sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-size: clamp(28px, 7vw, 44px);
-  font-weight: 900;
+  font-weight: 600;
   color: #e0198a;
   line-height: 1.1;
   margin-bottom: 14px;
@@ -214,7 +214,7 @@ body {
 
 .campaign-desc {
   font-size: clamp(14px, 2.5vw, 18px);
-  font-weight: 600;
+  font-weight: 400;
   color: #333;
   line-height: 1.65;
   margin-bottom: 16px;
