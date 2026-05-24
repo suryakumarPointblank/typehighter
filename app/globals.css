@@ -1,26 +1,374 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html, body {
+  overflow-x: hidden;
+  max-width: 100vw;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
+  background: #fff;
   font-family: Arial, Helvetica, sans-serif;
+  color: #333;
+}
+
+/* Full-width page, centered at 1000 px on large screens */
+.page {
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  overflow-x: hidden;
+  background: #fff;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━
+   HERO
+   top_middle_big_blue_strike.png is the background image.
+   Everything else is absolutely positioned over it.
+   ━━━━━━━━━━━━━━━━━━━━━ */
+.hero {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+/* Drives the section height */
+.hero-bg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* Absolute layer over the brushstroke */
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+}
+
+/* Rain cloud – top-left */
+.hero-cloud {
+  position: absolute;
+  top: -2%;
+  left: 0;
+  width: 18%;
+  z-index: 3;
+  pointer-events: none;
+}
+
+/* Two-column row: logo+banners | character */
+.hero-row {
+  position: absolute;
+  top: 4%;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: flex-start;
+  padding: 0 3%;
+}
+
+.hero-left {
+  flex: 0 0 54%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2%;
+  padding-top: 2%;
+}
+
+.hero-logo {
+  width: 92%;
+  height: auto;
+  display: block;
+}
+
+/* Brush-stroke banner pair */
+.banners {
+  display: flex;
+  flex-direction: column;
+  gap: 2%;
+  width: 92%;
+}
+
+.banner {
+  position: relative;
+  width: 100%;
+}
+
+.banner-bg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* Text overlaid on the white brushstroke — visible against dark bg */
+.banner-text {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 900;
+  font-size: clamp(7px, 1.6vw, 14px);
+  color: #c8006a;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  text-align: center;
+  padding: 0 4px;
+}
+
+/* Superhero character */
+.hero-right {
+  flex: 0 0 46%;
+  display: flex;
+  align-items: flex-end;
+  padding-top: 0;
+}
+
+.hero-char {
+  width: 115%;
+  height: auto;
+  display: block;
+  margin-left: -8%;
+  filter: drop-shadow(2px 4px 12px rgba(0,0,0,0.4));
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━
+   LOGOS
+   ━━━━━━━━━━━━━━━━━━━━━ */
+.logos {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 24px 16px;
+  background: #fff;
+  gap: 12px;
+}
+
+.logo-crm {
+  width: 50%;
+  max-width: 260px;
+  height: auto;
+}
+
+.logo-badge {
+  width: 38%;
+  max-width: 200px;
+  height: auto;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━
+   CAMPAIGN
+   ━━━━━━━━━━━━━━━━━━━━━ */
+.campaign {
+  background: #fff;
+  padding: 4px 22px 20px;
+  text-align: center;
+}
+
+.campaign-title {
+  font-size: clamp(28px, 7vw, 44px);
+  font-weight: 900;
+  font-style: italic;
+  color: #e0198a;
+  line-height: 1.1;
+  margin-bottom: 14px;
+}
+
+.campaign-desc {
+  font-size: clamp(14px, 2.5vw, 18px);
+  color: #333;
+  line-height: 1.65;
+  margin-bottom: 16px;
+}
+
+/* Campaign card:
+   giftbox_plus_pinkborder.png is the card bg — gift box sits on top
+   of a pink rounded rectangle. Text overlaid inside the rectangle.  */
+.card-wrap {
+  position: relative;
+  width: 100%;
+}
+
+.card-bg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* Text floats inside the pink-bordered rectangle area.
+   The rectangle starts at ~22% from top and the gift box
+   hangs over it from above, so text starts around 28%.   */
+.card-text {
+  position: absolute;
+  top: 28%;
+  left: 6%;
+  right: 6%;
+  bottom: 4%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: clamp(11px, 2vw, 16px);
+  color: #333;
+  line-height: 1.65;
+  text-align: center;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━
+   FORM
+   ━━━━━━━━━━━━━━━━━━━━━ */
+.form-section {
+  background: #fff;
+  padding: 16px 28px 36px;
+}
+
+.form-inner {
+  display: flex;
+  flex-direction: column;
+}
+
+.field-group {
+  margin-bottom: 22px;
+}
+
+.field-label {
+  display: block;
+  font-size: clamp(14px, 2vw, 18px);
+  color: #222;
+  margin-bottom: 4px;
+}
+
+.field-input {
+  display: block;
+  width: 100%;
+  border: none;
+  border-bottom: 1.5px solid #555;
+  padding: 6px 0;
+  font-size: clamp(14px, 2vw, 18px);
+  outline: none;
+  background: transparent;
+  color: #111;
+  transition: border-color 0.2s;
+}
+
+.field-input:focus {
+  border-bottom-color: #e0198a;
+}
+
+.field-input.field-err {
+  border-bottom-color: #e53e3e;
+}
+
+.err-text {
+  display: block;
+  font-size: 12px;
+  color: #e53e3e;
+  margin-top: 4px;
+}
+
+.file-hidden { display: none; }
+
+.api-error {
+  font-size: 13px;
+  color: #e53e3e;
+  margin-bottom: 8px;
+  text-align: center;
+}
+
+/* Pink pill CTA */
+.upload-btn {
+  display: block;
+  width: 70%;
+  max-width: 320px;
+  margin: 24px auto 0;
+  padding: 14px 24px;
+  background: linear-gradient(90deg, #e8198b 0%, #c5147a 100%);
+  color: #fff;
+  font-size: clamp(15px, 2.2vw, 20px);
+  font-weight: 700;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  text-align: center;
+  transition: transform 0.15s, box-shadow 0.15s;
+  box-shadow: 0 4px 16px rgba(232,25,139,0.4);
+}
+
+.upload-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 22px rgba(232,25,139,0.5);
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━
+   SUCCESS
+   ━━━━━━━━━━━━━━━━━━━━━ */
+.success-box {
+  text-align: center;
+  padding: 48px 20px;
+  animation: fadeUp 0.5s ease;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.success-check {
+  width: 72px;
+  height: 72px;
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 36px;
+  color: #fff;
+  margin: 0 auto 24px;
+  box-shadow: 0 6px 20px rgba(34,197,94,0.4);
+  animation: popIn 0.4s ease 0.15s both;
+}
+
+@keyframes popIn {
+  from { transform: scale(0); }
+  to   { transform: scale(1); }
+}
+
+.success-title {
+  font-size: clamp(22px, 4vw, 30px);
+  font-weight: 800;
+  color: #e0198a;
+  margin-bottom: 12px;
+}
+
+.success-msg {
+  font-size: clamp(14px, 2vw, 17px);
+  color: #555;
+  line-height: 1.65;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━
+   BOTTOM DECORATION
+   ━━━━━━━━━━━━━━━━━━━━━ */
+.bottom-decor { line-height: 0; overflow: hidden; }
+.bottom-shade {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━
+   RESPONSIVE TWEAKS
+   ━━━━━━━━━━━━━━━━━━━━━ */
+
+/* Tablet */
+@media (min-width: 600px) {
+  .form-section { padding: 16px 10% 40px; }
+}
+
+/* Desktop — centred at 1000px, padding on both sides */
+@media (min-width: 900px) {
+  .campaign    { padding: 4px 8% 24px; }
+  .logos       { padding: 28px 8%; }
+  .form-section { padding: 16px 15% 48px; }
 }

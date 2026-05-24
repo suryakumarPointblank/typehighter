@@ -1,65 +1,192 @@
-import Image from "next/image";
+"use client";
+
+import { useState, useRef, ChangeEvent } from "react";
 
 export default function Home() {
+  const [name, setName]     = useState("");
+  const [mobile, setMobile] = useState("");
+  const [drName, setDrName] = useState("");
+  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [apiError, setApiError] = useState("");
+  const fileRef = useRef<HTMLInputElement>(null);
+
+  const validate = () => {
+    const e: Record<string, string> = {};
+    if (!name.trim())   e.name   = "Name is required";
+    if (!mobile.trim()) e.mobile = "Mobile number is required";
+    if (!drName.trim()) e.drName = "Dr's name is required";
+    setErrors(e);
+    return Object.keys(e).length === 0;
+  };
+
+  const handleUpload = () => {
+    if (validate()) fileRef.current?.click();
+  };
+
+  const handleFile = async (e: ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setSubmitting(true);
+    setApiError("");
+
+    try {
+      const form = new FormData();
+      form.append("name",   name);
+      form.append("mobile", mobile);
+      form.append("drName", drName);
+      form.append("poster", file);
+
+      const res  = await fetch("/api/submit", { method: "POST", body: form });
+      const json = await res.json();
+
+      if (json.success) {
+        setSubmitted(true);
+      } else {
+        setApiError(json.error || "Something went wrong. Please try again.");
+      }
+    } catch {
+      setApiError("Network error. Please try again.");
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+    <main className="page">
+
+      {/* ── HERO ─────────────────────────────── */}
+      <section className="hero">
+        <img className="hero-bg" src="/images/top_middle_big_blue_strike.png" alt="" />
+
+        <div className="hero-overlay">
+          <img className="hero-cloud" src="/images/blue_cloud.png" alt="" />
+
+          <div className="hero-row">
+            <div className="hero-left">
+              <img className="hero-logo" src="/images/typehighter_heading_plus_umbrella.png" alt="Typhighter" />
+              <div className="banners">
+                <div className="banner">
+                  <img className="banner-bg" src="/images/sketched_white_bg_1.png" alt="" />
+                  <span className="banner-text">MONSOON PRECAUTION TIPS</span>
+                </div>
+                <div className="banner">
+                  <img className="banner-bg" src="/images/sketched_white_bg_2.png" alt="" />
+                  <span className="banner-text">POSTER COMPETITION</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="hero-right">
+              <img className="hero-char" src="/images/man_plus_paint_board.png" alt="Typhighter superhero" />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── LOGOS ────────────────────────────── */}
+      <section className="logos">
+        <img className="logo-crm"   src="/images/crm_mother_big_logo.png"           alt="Be a CRM – Caring & Responsible Mother" />
+        <img className="logo-badge" src="/images/Make_your_child_superman_logo.png" alt="Make your child a Typhighter" />
+      </section>
+
+      {/* ── CAMPAIGN ─────────────────────────── */}
+      <section className="campaign">
+        <h1 className="campaign-title">
+          The Typhight has<br />began already!
+        </h1>
+        <p className="campaign-desc">
+          become a part of a movement that promotes awareness, encourages
+          conversations, and inspires action against typhoid.
+        </p>
+
+        <div className="card-wrap">
+          <img className="card-bg" src="/images/giftbox_plus_pinkborder.png" alt="" />
+          <p className="card-text">
+            With exciting prizes, festive rewards, and a chance to get featured
+            on the MySureShot webpage, TyFight is creating excitement among
+            students and creators everywhere. It&apos;s your opportunity to
+            showcase your talent, make an impact, and be recognized for your
+            creativity. Fill your details below
           </p>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
+      </section>
+
+      {/* ── FORM ─────────────────────────────── */}
+      <section className="form-section">
+        {submitted ? (
+          <div className="success-box">
+            <div className="success-check">✓</div>
+            <h2 className="success-title">Poster Uploaded!</h2>
+            <p className="success-msg">
+              Thank you! Your poster has been received. We&apos;ll review it and
+              get back to you soon.
+            </p>
+          </div>
+        ) : (
+          <div className="form-inner">
+            <div className="field-group">
+              <label className="field-label">Name</label>
+              <input
+                type="text"
+                className={`field-input${errors.name ? " field-err" : ""}`}
+                value={name}
+                onChange={e => setName(e.target.value)}
+              />
+              {errors.name && <span className="err-text">{errors.name}</span>}
+            </div>
+
+            <div className="field-group">
+              <label className="field-label">Mobile number</label>
+              <input
+                type="tel"
+                className={`field-input${errors.mobile ? " field-err" : ""}`}
+                value={mobile}
+                onChange={e => setMobile(e.target.value)}
+              />
+              {errors.mobile && <span className="err-text">{errors.mobile}</span>}
+            </div>
+
+            <div className="field-group">
+              <label className="field-label">Dr&apos;s name</label>
+              <input
+                type="text"
+                className={`field-input${errors.drName ? " field-err" : ""}`}
+                value={drName}
+                onChange={e => setDrName(e.target.value)}
+              />
+              {errors.drName && <span className="err-text">{errors.drName}</span>}
+            </div>
+
+            <input
+              ref={fileRef}
+              type="file"
+              accept="image/*,.pdf"
+              className="file-hidden"
+              onChange={handleFile}
             />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+
+            {apiError && <p className="api-error">{apiError}</p>}
+
+            <button
+              type="button"
+              className="upload-btn"
+              onClick={handleUpload}
+              disabled={submitting}
+            >
+              {submitting ? "Uploading…" : "Upload your poster"}
+            </button>
+          </div>
+        )}
+      </section>
+
+      {/* ── BOTTOM DECORATION ────────────────── */}
+      <div className="bottom-decor">
+        <img className="bottom-shade" src="/images/bottom_right_blue_shade.png" alt="" />
+      </div>
+
+    </main>
   );
 }
