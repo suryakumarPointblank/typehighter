@@ -1,5 +1,38 @@
 @import "tailwindcss";
 
+/* ── FONTS ── */
+@font-face {
+  font-family: 'Dreamwalker';
+  src: url('/fonts/Dreamwalker.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Poppins';
+  src: url('/fonts/Poppins-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Poppins';
+  src: url('/fonts/Poppins-SemiBold.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Poppins';
+  src: url('/fonts/Poppins-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 html, body {
@@ -9,7 +42,7 @@ html, body {
 
 body {
   background: #fff;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Poppins', Arial, Helvetica, sans-serif;
   color: #333;
 }
 
@@ -30,7 +63,9 @@ body {
 .hero {
   position: relative;
   width: 100%;
-  overflow: hidden;
+  overflow: visible;
+  margin-top: 16px;
+  margin-bottom: 80px;
 }
 
 /* Drives the section height */
@@ -49,9 +84,9 @@ body {
 /* Rain cloud – top-left */
 .hero-cloud {
   position: absolute;
-  top: -2%;
-  left: 0;
-  width: 18%;
+  top: 2%;
+  left: 4%;
+  width: 14%;
   z-index: 3;
   pointer-events: none;
 }
@@ -109,7 +144,8 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: 900;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
   font-size: clamp(7px, 1.6vw, 14px);
   color: #c8006a;
   letter-spacing: 0.03em;
@@ -123,7 +159,7 @@ body {
   flex: 0 0 46%;
   display: flex;
   align-items: flex-end;
-  padding-top: 0;
+  padding-top: 10%;
 }
 
 .hero-char {
@@ -131,7 +167,7 @@ body {
   height: auto;
   display: block;
   margin-left: -8%;
-  filter: drop-shadow(2px 4px 12px rgba(0,0,0,0.4));
+  filter: drop-shadow(0px 8px 18px rgba(0,0,0,0.55)) drop-shadow(0px 2px 6px rgba(0,0,0,0.3));
 }
 
 /* ━━━━━━━━━━━━━━━━━━━━━
@@ -141,7 +177,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-around;
-  padding: 24px 16px;
+  padding: 24px 16px 24px;
   background: #fff;
   gap: 12px;
 }
@@ -153,8 +189,8 @@ body {
 }
 
 .logo-badge {
-  width: 38%;
-  max-width: 200px;
+  width: 52%;
+  max-width: 320px;
   height: auto;
 }
 
@@ -168,9 +204,9 @@ body {
 }
 
 .campaign-title {
+  font-family: 'Dreamwalker', 'Poppins', sans-serif;
   font-size: clamp(28px, 7vw, 44px);
   font-weight: 900;
-  font-style: italic;
   color: #e0198a;
   line-height: 1.1;
   margin-bottom: 14px;
@@ -178,6 +214,7 @@ body {
 
 .campaign-desc {
   font-size: clamp(14px, 2.5vw, 18px);
+  font-weight: 600;
   color: #333;
   line-height: 1.65;
   margin-bottom: 16px;
@@ -206,6 +243,7 @@ body {
   left: 6%;
   right: 6%;
   bottom: 4%;
+  font-weight: 600;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -213,6 +251,14 @@ body {
   color: #333;
   line-height: 1.65;
   text-align: center;
+}
+
+@media (min-width: 600px) {
+  /* Cap the card width so it doesn't grow huge and create excessive padding */
+  .card-wrap {
+    max-width: 680px;
+    margin: 0 auto;
+  }
 }
 
 /* ━━━━━━━━━━━━━━━━━━━━━
@@ -350,11 +396,25 @@ body {
 /* ━━━━━━━━━━━━━━━━━━━━━
    BOTTOM DECORATION
    ━━━━━━━━━━━━━━━━━━━━━ */
-.bottom-decor { line-height: 0; overflow: hidden; }
+.bottom-decor {
+  position: relative;
+  overflow: hidden;
+}
+
 .bottom-shade {
   display: block;
   width: 100%;
   height: auto;
+}
+
+/* Pink bar overlaid at the bottom of the blue stripe */
+.bottom-pink-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 14px;
+  background: #e0198a;
 }
 
 /* ━━━━━━━━━━━━━━━━━━━━━

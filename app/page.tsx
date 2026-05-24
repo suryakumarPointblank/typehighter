@@ -185,6 +185,7 @@ export default function Home() {
       {/* ── BOTTOM DECORATION ────────────────── */}
       <div className="bottom-decor">
         <img className="bottom-shade" src="/images/bottom_right_blue_shade.png" alt="" />
+        <div className="bottom-pink-bar" />
       </div>
 
     </main>
