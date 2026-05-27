@@ -8,10 +8,12 @@ export async function POST(req: NextRequest) {
   try {
     const form = await req.formData();
 
-    const name    = (form.get("name")   as string | null)?.trim();
-    const mobile  = (form.get("mobile") as string | null)?.trim();
-    const drName  = (form.get("drName") as string | null)?.trim();
-    const poster  = form.get("poster")  as File | null;
+    const name     = (form.get("name")     as string | null)?.trim();
+    const mobile   = (form.get("mobile")   as string | null)?.trim();
+    const drName   = (form.get("drName")   as string | null)?.trim();
+    const clinic   = (form.get("clinic")   as string | null)?.trim() ?? "";
+    const whatsapp = (form.get("whatsapp") as string | null) === "true";
+    const poster   = form.get("poster")    as File | null;
 
     if (!name || !mobile || !drName || !poster) {
       return NextResponse.json(
@@ -30,6 +32,8 @@ export async function POST(req: NextRequest) {
       name,
       mobile,
       drName,
+      clinic,
+      whatsappConsent: whatsapp,
       posterUrl,
       submittedAt: new Date(),
     });

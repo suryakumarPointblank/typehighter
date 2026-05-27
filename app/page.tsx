@@ -3,10 +3,12 @@
 import { useState, useRef, ChangeEvent } from "react";
 
 export default function Home() {
-  const [name, setName]     = useState("");
-  const [mobile, setMobile] = useState("");
-  const [drName, setDrName] = useState("");
-  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [name, setName]       = useState("");
+  const [mobile, setMobile]   = useState("");
+  const [drName, setDrName]   = useState("");
+  const [clinic, setClinic]   = useState("");
+  const [whatsapp, setWhatsapp] = useState(false);
+  const [errors, setErrors]   = useState<Record<string, string>>({});
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [apiError, setApiError] = useState("");
@@ -34,10 +36,12 @@ export default function Home() {
 
     try {
       const form = new FormData();
-      form.append("name",   name);
-      form.append("mobile", mobile);
-      form.append("drName", drName);
-      form.append("poster", file);
+      form.append("name",     name);
+      form.append("mobile",   mobile);
+      form.append("drName",   drName);
+      form.append("clinic",   clinic);
+      form.append("whatsapp", whatsapp ? "true" : "false");
+      form.append("poster",   file);
 
       const res  = await fetch("/api/submit", { method: "POST", body: form });
       const json = await res.json();
@@ -87,19 +91,19 @@ export default function Home() {
       </section>
 
       {/* ── LOGOS ────────────────────────────── */}
-      <section className="logos">
+      {/* <section className="logos">
         <img className="logo-crm"   src="/images/crm_mother_big_logo.png"           alt="Be a CRM – Caring & Responsible Mother" />
         <img className="logo-badge" src="/images/Make_your_child_superman_logo.png" alt="Make your child a Typhighter" />
-      </section>
+      </section> */}
 
       {/* ── CAMPAIGN ─────────────────────────── */}
       <section className="campaign">
         <h1 className="campaign-title">
-          The Typhight has<br />began already!
+          Get ready for <br />monsoon!
         </h1>
         <p className="campaign-desc">
           become a part of a movement that promotes awareness, encourages
-          conversations, and inspires action against typhoid.
+          conversations, and inspires safe actions during monsoon.
         </p>
 
         <div className="card-wrap">
@@ -158,6 +162,28 @@ export default function Home() {
                 onChange={e => setDrName(e.target.value)}
               />
               {errors.drName && <span className="err-text">{errors.drName}</span>}
+            </div>
+
+            <div className="field-group">
+              <label className="field-label">Clinic / Hospital you work at</label>
+              <input
+                type="text"
+                className="field-input"
+                value={clinic}
+                onChange={e => setClinic(e.target.value)}
+              />
+            </div>
+
+            <div className="consent-group">
+              <label className="consent-label">
+                <input
+                  type="checkbox"
+                  className="consent-check"
+                  checked={whatsapp}
+                  onChange={e => setWhatsapp(e.target.checked)}
+                />
+                I consent to receiving competition updates and festive wishes via WhatsApp
+              </label>
             </div>
 
             <input
