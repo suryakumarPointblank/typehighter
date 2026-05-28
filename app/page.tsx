@@ -61,6 +61,12 @@ export default function Home() {
   return (
     <main className="page">
 
+      {/* ── TOP LOGOS ────────────────────────── */}
+      <div className="top-logos">
+        <img className="top-logo-left"  src="/images/top_left_icon.png"                alt="BE Life Sciences" />
+        <img className="top-logo-right" src="/images/Make_your_child_superman_logo.png" alt="Make your child a Typhighter" />
+      </div>
+
       {/* ── HERO ─────────────────────────────── */}
       <section className="hero">
         <img className="hero-bg" src="/images/top_middle_big_blue_strike.png" alt="" />

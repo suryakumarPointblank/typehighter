@@ -56,6 +56,27 @@ body {
 }
 
 /* ━━━━━━━━━━━━━━━━━━━━━
+   TOP LOGOS
+   ━━━━━━━━━━━━━━━━━━━━━ */
+.top-logos {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px 6px;
+  background: #fff;
+}
+
+.top-logo-left {
+  height: 48px;
+  width: auto;
+}
+
+.top-logo-right {
+  height: 52px;
+  width: auto;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━
    HERO
    top_middle_big_blue_strike.png is the background image.
    Everything else is absolutely positioned over it.
@@ -64,7 +85,7 @@ body {
   position: relative;
   width: 100%;
   overflow: visible;
-  margin-top: 16px;
+  margin-top: 4px;
   margin-bottom: 80px;
 }
 
