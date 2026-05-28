@@ -106,7 +106,7 @@ body {
 .hero-cloud {
   position: absolute;
   top: 2%;
-  left: 4%;
+  left: 9%;
   width: 14%;
   z-index: 3;
   pointer-events: none;
@@ -131,6 +131,15 @@ body {
   align-items: center;
   gap: 2%;
   padding-top: 2%;
+}
+
+.hero-sub-logo {
+  position: absolute;
+  top: 18%;
+  left: 8%;
+  width: 20%;
+  height: auto;
+  z-index: 4;
 }
 
 .hero-logo {

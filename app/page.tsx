@@ -76,6 +76,7 @@ export default function Home() {
 
           <div className="hero-row">
             <div className="hero-left">
+              <img className="hero-sub-logo" src="/images/only_typehighter.png" alt="Typhighter" />
               <img className="hero-logo" src="/images/typehighter_heading_plus_umbrella.png" alt="Typhighter" />
               <div className="banners">
                 <div className="banner">
